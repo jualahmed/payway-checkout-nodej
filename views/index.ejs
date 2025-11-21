@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PayWay Checkout Sample - Node.js</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="author" content="PayWay">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🛒 PayWay Checkout</h1>
+            <p>Node.js Integration Sample</p>
+        </header>
+
+        <!-- Checkout Form (Hidden) -->
+        <div id="aba_main_modal" class="aba-modal" style="display: none;">
+            <div class="aba-modal-content">
+                <form method="POST" target="aba_webservice" action="<%= api_url %>" id="aba_merchant_request">
+                    <input type="hidden" name="hash" value="<%= hash %>" id="hash"/>
+                    <input type="hidden" name="tran_id" value="<%= transactionId %>" id="tran_id"/>
+                    <input type="hidden" name="amount" value="<%= amount %>" id="amount"/>
+                    <input type="hidden" name="firstname" value="<%= firstName %>"/>
+                    <input type="hidden" name="lastname" value="<%= lastName %>"/>
+                    <input type="hidden" name="phone" value="<%= phone %>"/>
+                    <input type="hidden" name="email" value="<%= email %>"/>
+                    <input type="hidden" name="return_params" value="<%= return_params %>"/>
+                    <input type="hidden" name="merchant_id" value="<%= merchant_id %>"/>
+                    <input type="hidden" name="req_time" value="<%= req_time %>"/>
+                    <input type="hidden" name="payment_option" value="<%= payment_option %>"/>
+                    <input type="hidden" name="currency" value="<%= currency %>"/>
+                </form>
+            </div>
+        </div>
+
+        <!-- Customer Information Display -->
+        <div class="customer-info">
+            <h3>Order Summary</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Name:</label>
+                    <span><%= firstName %> <%= lastName %></span>
+                </div>
+                <div class="info-item">
+                    <label>Email:</label>
+                    <span><%= email %></span>
+                </div>
+                <div class="info-item">
+                    <label>Phone:</label>
+                    <span><%= phone %></span>
+                </div>
+                <div class="info-item">
+                    <label>Transaction ID:</label>
+                    <span><%= transactionId %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Button -->
+        <div class="checkout-section">
+            <div class="amount-display">
+                <h2>TOTAL: <%= totalAmount %></h2>
+                <p class="test-mode">Test Mode - Amount: $<%= amount %></p>
+            </div>
+            <input type="button" id="checkout_button" value="Proceed to PayWay Checkout" class="checkout-btn">
+            
+            <!-- Custom Checkout Form (Optional) -->
+            <div class="custom-checkout" style="margin-top: 20px; padding: 15px; border: 1px dashed #ccc;">
+                <h4>Custom Checkout (Optional)</h4>
+                <form method="POST" action="/checkout" style="display: grid; gap: 10px; max-width: 300px;">
+                    <input type="text" name="firstName" placeholder="First Name" value="<%= firstName %>">
+                    <input type="text" name="lastName" placeholder="Last Name" value="<%= lastName %>">
+                    <input type="email" name="email" placeholder="Email" value="<%= email %>">
+                    <input type="tel" name="phone" placeholder="Phone" value="<%= phone %>">
+                    <input type="number" name="amount" placeholder="Amount" step="0.01" value="<%= amount %>">
+                    <button type="submit">Update & Checkout</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Debug Information (Development only) -->
+        <% if (process.env.NODE_ENV === 'development') { %>
+        <div class="debug-info" style="margin-top: 30px; padding: 15px; background: #f5f5f5; border-radius: 5px;">
+            <h4>Debug Information</h4>
+            <pre>Hash: <%= hash %></pre>
+            <pre>Timestamp: <%= req_time %></pre>
+            <pre>API URL: <%= api_url %></pre>
+        </div>
+        <% } %>
+    </div>
+
+    <!-- PayWay Checkout Script -->
+    <script src="https://checkout.payway.com.kh/plugins/checkout2-0.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#checkout_button').click(function () {
+                console.log('Initiating PayWay checkout...');
+                AbaPayway.checkout();
+            });
+
+            // Handle form submission for custom checkout
+            $('form[action="/checkout"]').on('submit', function(e) {
+                e.preventDefault();
+                $(this).find('button').text('Processing...').prop('disabled', true);
+                this.submit();
+            });
+        });
+    </script>
+</body>
+</html>

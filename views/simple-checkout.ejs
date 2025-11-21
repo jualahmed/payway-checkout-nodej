@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PayWay Simple Checkout</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="author" content="PayWay">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🛒 PayWay Simple Checkout</h1>
+            <p>Minimal Integration - Matching PHP Format</p>
+        </header>
+
+        <!-- Checkout Form (Hidden) -->
+        <div id="aba_main_modal" class="aba-modal" style="display: none;">
+            <div class="aba-modal-content">
+                <form method="POST" target="aba_webservice" action="<%= api_url %>" id="aba_merchant_request">
+                    <input type="hidden" name="hash" value="<%= hash %>" id="hash"/>
+                    <input type="hidden" name="tran_id" value="<%= transactionId %>" id="tran_id"/>
+                    <input type="hidden" name="amount" value="<%= amount %>" id="amount"/>
+                    <input type="hidden" name="firstname" value="<%= firstName %>"/>
+                    <input type="hidden" name="lastname" value="<%= lastName %>"/>
+                    <input type="hidden" name="phone" value="<%= phone %>"/>
+                    <input type="hidden" name="email" value="<%= email %>"/>
+                    <input type="hidden" name="return_params" value="<%= return_params %>"/>
+                    <input type="hidden" name="merchant_id" value="<%= merchant_id %>"/>
+                    <input type="hidden" name="req_time" value="<%= req_time %>"/>
+                </form>
+            </div>
+        </div>
+
+        <!-- Order Information -->
+        <div class="customer-info">
+            <h3>Order Details</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Transaction ID:</label>
+                    <span><%= transactionId %></span>
+                </div>
+                <div class="info-item">
+                    <label>Amount:</label>
+                    <span>$<%= amount %></span>
+                </div>
+                <div class="info-item">
+                    <label>Customer:</label>
+                    <span><%= firstName %> <%= lastName %></span>
+                </div>
+                <div class="info-item">
+                    <label>Timestamp:</label>
+                    <span><%= req_time %></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkout Button -->
+        <div class="checkout-section">
+            <div class="amount-display">
+                <h2>TOTAL: <%= totalAmount %></h2>
+                <p class="test-mode">Test Mode - This matches the original PHP format</p>
+            </div>
+            <input type="button" id="checkout_button" value="Proceed to PayWay Checkout" class="checkout-btn">
+            
+            <div style="margin-top: 20px;">
+                <a href="/" class="back-btn">Back to Standard Checkout</a>
+            </div>
+        </div>
+
+        <!-- Debug Information -->
+        <div class="debug-info">
+            <h4>Debug Information</h4>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>Hash:</label>
+                    <span style="font-family: monospace; font-size: 12px;"><%= hash %></span>
+                </div>
+                <div class="info-item">
+                    <label>API URL:</label>
+                    <span><%= api_url %></span>
+                </div>
+                <div class="info-item">
+                    <label>Merchant ID:</label>
+                    <span><%= merchant_id %></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PayWay Checkout Script -->
+    <script src="https://checkout.payway.com.kh/plugins/checkout2-0.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#checkout_button').click(function () {
+                console.log('Initiating PayWay checkout...');
+                console.log('Transaction ID:', '<%= transactionId %>');
+                console.log('Amount:', '<%= amount %>');
+                AbaPayway.checkout();
+            });
+        });
+    </script>
+</body>
+</html>

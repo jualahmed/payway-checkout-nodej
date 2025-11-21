@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Payment Successful</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="success-message">
+            <h1>✅ Payment Successful!</h1>
+            <p>Thank you for your purchase.</p>
+            <div class="transaction-details">
+                <p><strong>Transaction ID:</strong> <%= transactionId %></p>
+                <p><strong>Amount:</strong> $<%= amount %></p>
+            </div>
+            <a href="/" class="back-btn">Make Another Payment</a>
+        </div>
+    </div>
+</body>
+</html>

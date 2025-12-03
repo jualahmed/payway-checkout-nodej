@@ -13,23 +13,24 @@
     <div class="container">
         <header class="header">
             <h1>🛒 PayWay Simple Checkout</h1>
-            <p>Minimal Integration - Matching PHP Format</p>
+            <p>Minimal Integration - Matching  Format ssssssssssssssssss</p>
         </header>
 
         <!-- Checkout Form (Hidden) -->
-        <div id="aba_main_modal" class="aba-modal" style="display: none;">
+        <div id="aba_main_modal" class="aba-modal" style="display: block;">
             <div class="aba-modal-content">
                 <form method="POST" target="aba_webservice" action="<%= api_url %>" id="aba_merchant_request">
-                    <input type="hidden" name="hash" value="<%= hash %>" id="hash"/>
-                    <input type="hidden" name="tran_id" value="<%= transactionId %>" id="tran_id"/>
-                    <input type="hidden" name="amount" value="<%= amount %>" id="amount"/>
-                    <input type="hidden" name="firstname" value="<%= firstName %>"/>
-                    <input type="hidden" name="lastname" value="<%= lastName %>"/>
-                    <input type="hidden" name="phone" value="<%= phone %>"/>
-                    <input type="hidden" name="email" value="<%= email %>"/>
-                    <input type="hidden" name="return_params" value="<%= return_params %>"/>
-                    <input type="hidden" name="merchant_id" value="<%= merchant_id %>"/>
-                    <input type="hidden" name="req_time" value="<%= req_time %>"/>
+                    <input type="text" name="phone" value="<%= phone %>"/>
+                    <input type="text" name="hash" value="<%= hash %>" id="hash"/>
+                    <input type="text" name="tran_id" value="<%= transactionId %>" id="tran_id"/>
+                    <input type="text" name="amount" value="<%= amount %>" id="amount"/>
+                    <input type="text" name="firstname" value="<%= firstName %>"/>
+                    <input type="text" name="lastname" value="<%= lastName %>"/>
+                    <input type="text" name="email" value="<%= email %>"/>
+                    <input type="text" name="return_params" value="<%= return_params %>"/>
+                    <input type="text" name="merchant_id" value="<%= merchant_id %>"/>
+                    <input type="text" name="req_time" value="<%= req_time %>"/>
+                    <input type="text" name="payment_option" value="<%= payment_option %>"/>
                 </form>
             </div>
         </div>

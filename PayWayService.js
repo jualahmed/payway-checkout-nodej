@@ -51,10 +51,11 @@ class PayWayService {
         const phone = process.env.DEFAULT_PHONE || '093630466';
         const email = process.env.DEFAULT_EMAIL || 'prom.makara@ababank.com';
         const return_params = "Hello World!";
+        const payment_option = 'abapay_khqr';
 
         // Create hash string (EXACTLY matching PHP order)
         const hashString = req_time + this.config.MERCHANT_ID + transactionId + 
-                          amount + firstName + lastName + email + phone + return_params;
+                          amount + firstName + lastName + email + phone + payment_option + return_params;
         
         console.log('Hash string:', hashString); // For debugging
         
@@ -71,6 +72,7 @@ class PayWayService {
             return_params,
             merchant_id: this.config.MERCHANT_ID,
             hash,
+            payment_option,
             api_url: this.config.API_URL
         };
     }
